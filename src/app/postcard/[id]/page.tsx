@@ -38,7 +38,7 @@ export default async function PostcardPage({
         <Preview postcard={postcard} />
       ) : (
         <div className="text-center space-y-4">
-          <p>couldn't find your postcard :(</p>
+          <p>couldnt find your postcard :-(</p>
           <Link href="/create" className="block w-max mx-auto btn-primary">
             + create a new one
           </Link>
