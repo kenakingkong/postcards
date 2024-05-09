@@ -5,7 +5,7 @@ namespace ImageUtils {
 
   export const revokeObjectURL = (url?: string) => {
     if (!url) return;
-    URL.revokeObjectURL(url);
+    window.URL.revokeObjectURL(url);
   };
 
   export const getImageBlobFromUrl = async (url: string) => {

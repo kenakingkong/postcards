@@ -1,4 +1,3 @@
-"use client";
 
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import Modal from "./modal";

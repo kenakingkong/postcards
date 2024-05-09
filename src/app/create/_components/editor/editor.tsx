@@ -1,17 +1,19 @@
+"use client";
+
 import { useRef, useState } from "react";
 import FormError from "@/_components/formError";
 import BackImageEditor from "./backImageEditor";
 import FrontImageEditor from "./frontImageEditor";
 import { useBuilder } from "../builderContext";
-import { useSteps } from "../stepsContext";
 import CanvasPainter from "@/_lib/canvasPainter";
-import ImageUtils from "@/_utils/imageUtils";
 import Pdf from "@/_lib/pdfBuilder";
-import { Postcard } from "@/_lib/postcardBuilder/postcard";
+import { createClient } from "@/_utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function ImageEditors() {
+  const router = useRouter();
+  const supabase = createClient();
   const builder = useBuilder();
-  const { setActiveStep } = useSteps();
 
   const [hasError, setHasError] = useState<boolean>(false);
 
@@ -45,7 +47,9 @@ export default function ImageEditors() {
   );
 
   const generatePdf = () => {
-    if (!frontCanvasRef.current || !backCanvasRef.current) return;
+    if (!frontCanvasRef.current || !backCanvasRef.current) {
+      return new Blob();
+    }
     const shouldRotate = template?.front.orientation == "portrait";
     return new Pdf().build(
       frontCanvasRef.current,
@@ -59,35 +63,75 @@ export default function ImageEditors() {
       setHasError(true);
       return;
     }
-    
+
     if (!builder.hasAddress()) {
       // remove address box
       backPainterRef.current.paintBase();
     }
 
-    await Promise.all([
-      frontPainterRef.current.saveCanvasAsBlob(),
-      backPainterRef.current.saveCanvasAsBlob(),
-    ])
-      .then((values) => {
-        builder.setUrl(
-          Postcard.FRONT_IMG_URL,
-          ImageUtils.createImageUrl(values[0])
-        );
-        builder.setUrl(
-          Postcard.BACK_IMG_URL,
-          ImageUtils.createImageUrl(values[1])
+    try {
+      const imageBlobs = await Promise.all([
+        frontPainterRef.current.saveCanvasAsBlob(),
+        backPainterRef.current.saveCanvasAsBlob(),
+      ]);
+
+      const pdfBlob = generatePdf();
+
+      const { data: userData, error } = await supabase.auth.getUser();
+      const userId = userData?.user?.id;
+
+      const { data: frontImageData, error: frontImageError } =
+        await supabase.storage
+          .from("postcard-uploads")
+          .upload(
+            `${userId}/${builder.generateFileName("front", ".webp")}`,
+            imageBlobs[0]
+          );
+
+      if (frontImageError) {
+        console.error(frontImageError);
+        throw new Error();
+      }
+
+      const { data: backImageData, error: backImageError } =
+        await supabase.storage
+          .from("postcard-uploads")
+          .upload(
+            `${userId}/${builder.generateFileName("back", ".webp")}`,
+            imageBlobs[1]
+          );
+
+      if (backImageError) throw new Error();
+
+      const { data: pdfData, error: pdfError } = await supabase.storage
+        .from("postcard-uploads")
+        .upload(
+          `${userId}/${builder.generateFileName("pdf", ".pdf")}`,
+          pdfBlob
         );
 
-        const pdfUrl = generatePdf();
-        if (pdfUrl) builder.setUrl(Postcard.PDF_URL, pdfUrl);
+      if (pdfError) throw new Error();
 
-        setActiveStep("step-print");
-      })
-      .catch(() => {
-        console.log("did someone throw and error?");
-        setHasError(true);
-      });
+      const payload = {
+        user_id: "ad87c45e-7d47-4032-9bd1-37db20fa6d21",
+        template_id: builder.template?.id,
+        front_image_url: frontImageData?.path || "",
+        back_image_url: backImageData?.path || "",
+        pdf_url: pdfData?.path || "",
+      };
+
+      const { data: record, error: recordError } = await supabase
+        .from("postcards")
+        .insert(payload)
+        .select();
+
+      if (recordError) throw new Error();
+
+      router.push(`/postcard/${record?.[0]?.id}`);
+    } catch (error) {
+      console.error("did someone throw and error?");
+      setHasError(true);
+    }
   };
 
   return (

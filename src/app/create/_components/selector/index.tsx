@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useBuilder } from "../builderContext";
-import { useSteps } from "../stepsContext";
+import { STEP_NAMES, useSteps } from "../stepsContext";
 import FormError from "@/_components/formError";
 import TemplatePicker from "@/_lib/templatePicker";
 import PageHeader from "@/_components/pageHeader";
@@ -10,8 +10,6 @@ import PageSubheader from "@/_components/pageSubheader";
 import Link from "next/link";
 
 export default function Selector() {
-  const NEXT_STEP = "step-editor";
-
   const builder = useBuilder();
   const { setActiveStep } = useSteps();
 
@@ -37,7 +35,7 @@ export default function Selector() {
     }
 
     builder.setTemplate(selectedId);
-    setActiveStep(NEXT_STEP);
+    setActiveStep(STEP_NAMES.EDITOR);
   };
 
   return (

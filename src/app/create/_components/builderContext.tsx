@@ -23,8 +23,10 @@ export const BuilderContextProvider: React.FC<{ children?: any }> = ({
   children,
 }) => {
   const builder = new PostCardBuilder();
-  builder.setTemplate("thanks-template-1")
+  builder.setTemplate("thanks-template-1");
   return (
-    <BuilderContext.Provider value={{ builder }}>{children}</BuilderContext.Provider>
+    <BuilderContext.Provider value={{ builder }}>
+      {children}
+    </BuilderContext.Provider>
   );
 };

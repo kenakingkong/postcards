@@ -1,11 +1,17 @@
+"use client";
+
 import {
   Dispatch,
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
+
+export const STEP_NAMES = {
+  SELECTOR: "step-selector",
+  EDITOR: "step-editor",
+};
 
 interface IMyContextProps {
   activeStep: string;
@@ -13,7 +19,7 @@ interface IMyContextProps {
 }
 
 const StepsContext = createContext<IMyContextProps>({
-  activeStep: "step-editor",
+  activeStep: STEP_NAMES.SELECTOR,
   setActiveStep: () => {},
 });
 
@@ -21,10 +27,14 @@ export const useSteps = () => {
   return useContext(StepsContext);
 };
 
+export const useTheseSteps = () => {
+  return useContext(StepsContext);
+};
+
 export const StepsContextProvider: React.FC<{ children?: any }> = ({
   children,
 }) => {
-  const [activeStep, setActiveStep] = useState<string>("step-editor");
+  const [activeStep, setActiveStep] = useState<string>(STEP_NAMES.SELECTOR);
 
   return (
     <StepsContext.Provider value={{ activeStep, setActiveStep }}>

@@ -25,7 +25,9 @@ export default function RootLayout({
         <main>
           <NavBar />
           <div className="absolute top-0 left-0 pl-12 w-full max-h-[100vh] overflow-scroll">
-            {children}
+            <div className="p-4 lg:p-6 lg:pb-12 min-h-[100vh] space-y-8 bg-blue-50/20">
+              {children}
+            </div>
           </div>
         </main>
         <div id="app-modal"></div>

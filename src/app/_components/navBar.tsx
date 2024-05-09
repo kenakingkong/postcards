@@ -1,21 +1,25 @@
 "use client";
 
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { createClient } from "@/_utils/supabase/client";
 
-const NavBar = () => {
+export default function NavBar() {
+  const supabase = createClient();
+
   const NAV_LINKS = [
     { href: "/create", label: "+ create" },
     { href: "/gallery", label: "gallery" },
-    { href: "/about", label: "about" },
-    { href: "/faq", label: "faq" },
-    { href: "/contact", label: "contact" },
+    // { href: "/about", label: "about" },
+    // { href: "/faq", label: "faq" },
+    // { href: "/contact", label: "contact" },
   ];
 
   const router = useRouter();
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
   const openMenu = () => setShowMenu(true);
   const closeMenu = () => setShowMenu(false);
@@ -24,6 +28,20 @@ const NavBar = () => {
     closeMenu();
     router.push((event.target as HTMLButtonElement).value);
   };
+
+  const handleSignout = async () => {
+    const { error } = await supabase.auth.signOut();
+    setIsSignedIn(false);
+  };
+
+  useEffect(() => {
+    const setUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      setIsSignedIn(!error && !!data.user);
+    };
+
+    setUser();
+  }, []);
 
   return (
     <aside
@@ -46,7 +64,7 @@ const NavBar = () => {
             height={36}
           />
         </button>
-        <Link href="https://makenakong.com" target="_blank">
+        <Link href="/">
           <span className="inline font-bold text-xl writing-mode-vertical-rl transform rotate-180 whitespace-nowrap hover:underline">
             postcards by makena kong
           </span>
@@ -58,8 +76,8 @@ const NavBar = () => {
           showMenu ? "w-full bg-white z-10" : "w-0"
         )}
       >
-        <ul className="h-full text-right text-2xl md:text-4xl lg:text-6xl flex flex-col items-end justify-end gap-4 lg:gap-8">
-          <li className="grow">
+        <div className="h-full text-right text-2xl md:text-4xl lg:text-6xl flex flex-col items-end justify-between">
+          <div className="grow">
             <button
               title="close menu"
               onClick={closeMenu}
@@ -67,21 +85,52 @@ const NavBar = () => {
             >
               ⓧ
             </button>
-          </li>
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.href}
-              value={link.href}
-              onClick={handleClick}
-              className="hover:underline"
-            >
-              {link.label}
-            </button>
-          ))}
-        </ul>
+          </div>
+          <ul className="h-full text-right text-2xl md:text-4xl lg:text-6xl flex flex-col items-end justify-end gap-4 lg:gap-8">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <button
+                  value={link.href}
+                  onClick={handleClick}
+                  className="hover:underline"
+                >
+                  {link.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <ul className="h-full text-right text-xl md:text-2xl lg:text-4xl flex flex-col items-end justify-end gap-4 lg:gap-8">
+            {isSignedIn ? (
+              <>
+                <li>
+                  <button
+                    value="/my-postcards"
+                    onClick={handleClick}
+                    className="hover:underline"
+                  >
+                    my postcards
+                  </button>
+                </li>
+                <li>
+                  <button className="hover:underline" onClick={handleSignout}>
+                    sign out
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li>
+                <button
+                  value="/signup"
+                  onClick={handleClick}
+                  className="hover:underline"
+                >
+                  sign up
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
       </nav>
     </aside>
   );
-};
-
-export default NavBar;
+}

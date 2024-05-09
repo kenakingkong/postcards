@@ -17,9 +17,6 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
   defaultAddress,
   callback,
 }) => {
-  const FORM_INPUT_STYLE =
-    "w-full min-w-full max-w-lg px-0.5 py-1 border-b-2 bd-b-secondary focus:outline-none focus:ring-none focus:bd-b-primary";
-
   const [hasError, setHasError] = useState<boolean>(false);
 
   const clearAddress = () => {
@@ -64,14 +61,17 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={() => onClose()}>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-2 min-w-[40vw]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 p-2 min-w-[40vw]"
+      >
         <p>optional: enter a return address</p>
         <input
           type="text"
           name="senderName"
           placeholder="sender name"
           defaultValue={defaultAddress?.senderName}
-          className={FORM_INPUT_STYLE}
+          className="input-line"
         />
         <input
           type="text"
@@ -79,7 +79,7 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
           required
           placeholder="street address"
           defaultValue={defaultAddress?.streetAddress}
-          className={FORM_INPUT_STYLE}
+          className="input-line"
         />
         <input
           type="text"
@@ -87,7 +87,7 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
           required
           placeholder="city/province"
           defaultValue={defaultAddress?.locality}
-          className={FORM_INPUT_STYLE}
+          className="input-line"
         />
         <input
           type="text"
@@ -95,7 +95,7 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
           required
           placeholder="state/region"
           defaultValue={defaultAddress?.administrativeArea}
-          className={FORM_INPUT_STYLE}
+          className="input-line"
         />
         <input
           type="text"
@@ -103,7 +103,7 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
           required
           placeholder="postal code"
           defaultValue={defaultAddress?.postalCode}
-          className={FORM_INPUT_STYLE}
+          className="input-line"
         />
         <input
           type="text"
@@ -111,7 +111,7 @@ const AddressFormModal: React.FC<IAddressModalProps> = ({
           required
           placeholder="country"
           defaultValue={defaultAddress?.country}
-          className={FORM_INPUT_STYLE}
+          className="input-line"
         />
         <div className="flex items-center gap-2">
           <button className="btn-primary">done!</button>

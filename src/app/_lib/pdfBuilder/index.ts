@@ -11,7 +11,7 @@ export default class Pdf {
     frontCanvas: HTMLCanvasElement,
     backCanvas: HTMLCanvasElement,
     rotateFront: boolean = false
-  ): string {
+  ): Blob {
     this.buildFrontPage(frontCanvas, rotateFront);
     this.addPage();
     this.buildBackPage(backCanvas);
@@ -19,9 +19,7 @@ export default class Pdf {
   }
 
   private getOutputUrl() {
-    return this.pdf.output("datauristring", {
-      filename: "my-postcard.pdf",
-    });
+    return this.pdf.output("blob");
   }
 
   private addPage() {

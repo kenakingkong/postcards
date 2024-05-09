@@ -35,6 +35,10 @@
     color: var(--secondary-color);
   }
 
+  .link {
+    @apply underline hover:opacity-80;
+  }
+
   .btn {
     @apply rounded-full py-1.5 px-4 hover:opacity-80 transition-all text-xs md:text-sm font-medium tracking-wide;
   }
@@ -95,6 +99,10 @@
 
   .modal-overlay {
     background-color: rgba(80, 88, 108, 0.5);
+  }
+
+  .input-line {
+    @apply w-full min-w-full max-w-lg px-0.5 py-1 border-b-2 bd-b-secondary focus:outline-none focus:ring-0 focus:bd-b-primary;
   }
 }
 
