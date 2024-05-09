@@ -6,6 +6,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary-color: #50586c;
+  --secondary-color: #dce2f0;
+  --border-size: 2.5px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,21 +16,95 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    --primary-color: #dce2f0;
+    --secondary-color: #50586c;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+* {
+  box-sizing: border-box;
+  color: var(--primary-color);
+}
+
+@layer components {
+  .txt-clr-primary {
+    color: var(--primary-color);
+  }
+
+  .txt-clr-secondary {
+    color: var(--secondary-color);
+  }
+
+  .btn {
+    @apply rounded-full py-1.5 px-4 hover:opacity-80 transition-all text-xs md:text-sm font-medium tracking-wide;
+  }
+
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: var(--border-size) solid var(--primary-color);
+    @apply btn;
+  }
+
+  .btn-primary-outline {
+    border: var(--border-size) solid var(--primary-color);
+    @apply btn;
+  }
+
+  .bd-primary {
+    border: var(--border-size) solid var(--primary-color);
+    @apply transition-all;
+  }
+
+  .bd-secondary {
+    border: var(--border-size) solid var(--secondary-color);
+    @apply transition-all;
+  }
+
+  .bd-r-primary {
+    border-right: var(--border-size) solid var(--primary-color);
+    @apply transition-all;
+  }
+
+  .bd-r-secondary {
+    border-right: var(--border-size) solid var(--secondary-color);
+    @apply transition-all;
+  }
+
+  .bd-b-primary {
+    border-bottom: var(--border-size) solid var(--primary-color);
+    @apply transition-all;
+  }
+
+  .bd-b-secondary {
+    border-bottom: var(--border-size) solid var(--secondary-color);
+    @apply transition-all;
+  }
+
+  .bg-primary {
+    background-color: var(--primary-color);
+  }
+
+  .bg-secondary {
+    background-color: var(--secondary-color);
+  }
+
+  .form-error {
+    @apply block text-red-600 font-medium text-sm;
+  }
+
+  .modal-overlay {
+    background-color: rgba(80, 88, 108, 0.5);
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .writing-mode-vertical-rl {
+    -ms-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
   }
 }
