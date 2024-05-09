@@ -1,4 +1,4 @@
-import { ICustomImage } from "../models";
+import { ICustomImage } from "./models/customImage";
 
 export class CustomImage {
   x: number;
