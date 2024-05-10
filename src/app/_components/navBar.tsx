@@ -10,8 +10,8 @@ export default function NavBar() {
   const supabase = createClient();
 
   const NAV_LINKS = [
-    { href: "/create", label: "+ create" },
     { href: "/gallery", label: "gallery" },
+    { href: "/create", label: "+ create" },
     // { href: "/about", label: "about" },
     // { href: "/faq", label: "faq" },
     // { href: "/contact", label: "contact" },
@@ -21,32 +21,40 @@ export default function NavBar() {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
-  const openMenu = () => setShowMenu(true);
   const closeMenu = () => setShowMenu(false);
+  const toggleMenu = () => setShowMenu((prev) => !prev);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     closeMenu();
     router.push((event.target as HTMLButtonElement).value);
   };
 
+  const setUser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    setIsSignedIn(!error && !!data.user);
+  };
+
   const handleSignout = async () => {
     const { error } = await supabase.auth.signOut();
     setIsSignedIn(false);
+    setShowMenu(false);
+    router.push("/");
   };
 
   useEffect(() => {
-    const setUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      setIsSignedIn(!error && !!data.user);
-    };
-
     setUser();
   }, []);
+
+  useEffect(() => {
+    if (!showMenu) return;
+    if (isSignedIn) return;
+    setUser();
+  }, [showMenu, isSignedIn]);
 
   return (
     <aside
       className={classNames(
-        "absolute top-0 left-0 relative w-max h-[100vh] z-10 overflow-hidden bd-r-primary transition-all",
+        "absolute top-0 left-0 relative w-max h-[100svh] z-10 overflow-hidden bd-r-primary transition-all",
         showMenu ? "w-screen" : "w-12"
       )}
     >
@@ -54,7 +62,7 @@ export default function NavBar() {
         <button
           title="menu"
           className="flex items-center justify-center"
-          onClick={openMenu}
+          onClick={toggleMenu}
         >
           <img
             src="/opened-box.svg"

@@ -1,5 +1,5 @@
-import PageHeader from "@/_components/pageHeader";
 import SignupForm from "@/_components/auth/signupForm";
+import PageHeader from "@/_components/pageHeader";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -7,9 +7,9 @@ export default function LoginPage() {
     <>
       <PageHeader>create an account</PageHeader>
       <SignupForm />
-      <p>
+      <p className="text-center">
         already have an account?{" "}
-        <Link href="/signup" className="underline">
+        <Link href="/login" className="underline">
           log in
         </Link>
       </p>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useBuilder } from "../builderContext";
@@ -7,9 +7,11 @@ import FormError from "@/_components/formError";
 import TemplatePicker from "@/_lib/templatePicker";
 import PageHeader from "@/_components/pageHeader";
 import PageSubheader from "@/_components/pageSubheader";
+import { useIsLoggedIn } from "@/_contexts/sessionContext";
 import Link from "next/link";
 
 export default function Selector() {
+  const isLoggedIn = useIsLoggedIn();
   const builder = useBuilder();
   const { setActiveStep } = useSteps();
 
@@ -17,6 +19,7 @@ export default function Selector() {
   const availableTemplates = picker.availableTemplates();
 
   const [hasError, setHasError] = useState<boolean>(false);
+  const [hasAuthError, setHasAuthError] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<string | undefined>(
     builder.template?.id
   );
@@ -31,6 +34,11 @@ export default function Selector() {
 
     if (!selectedId) {
       setHasError(true);
+      return;
+    }
+
+    if (!isLoggedIn) {
+      setHasAuthError(true);
       return;
     }
 
@@ -82,6 +90,15 @@ export default function Selector() {
         </ul>
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 space-y-2 flex flex-col items-center">
           {hasError && <FormError>select a template to continue</FormError>}
+          {hasAuthError && (
+            <FormError>
+              please{" "}
+              <Link href="/signup" className="link">
+                create an account
+              </Link>{" "}
+              to continue
+            </FormError>
+          )}
           <button className="btn-primary">next →</button>
         </div>
       </form>

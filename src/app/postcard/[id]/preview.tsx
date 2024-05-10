@@ -1,5 +1,5 @@
 import SupabaseUtils from "@/_utils/supabase";
-import IPostcard from "@/_lib/postcard/model/postcard";
+import IPostcard from "@/_lib/postcard/models/postcard";
 import PostcardPreview from "./postcardPreview";
 import PostcardPrinter from "./postcardPrinter";
 import PdfPrinter from "./pdfPrinter";

@@ -8,7 +8,6 @@ export default function useFetch(endpoint: string) {
   useEffect(() => {
     fetch(endpoint)
       .then((response) => {
-        console.log('fetching...')
         if (!response.ok) {
           // error coming back from server
           throw Error("could not fetch the data for that resource");

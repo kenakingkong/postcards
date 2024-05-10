@@ -7,7 +7,7 @@ const FormError: React.FC<HtmlHTMLAttributes<HTMLSpanElement>> = ({
 }) => (
   <span
     role="alert"
-    className={classNames("form-error", className)}
+    className={classNames("form-error bg-white/90", className)}
     {...props}
   />
 );

@@ -17,8 +17,12 @@ export default async function MyCardsPage() {
   return (
     <>
       <div className="space-y-2">
-      <PageHeader>my postcards</PageHeader>
-      <PageSubheader><Link href="/create" className="link">create a new one</Link></PageSubheader>
+        <PageHeader>my postcards</PageHeader>
+        <PageSubheader>
+          <Link href="/create" className="link">
+            create a new one
+          </Link>
+        </PageSubheader>
       </div>
       {/* <p>Welcome, {data.user.email}</p> */}
       <Postcards userId={data.user.id} />

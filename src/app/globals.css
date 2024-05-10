@@ -102,7 +102,7 @@
   }
 
   .input-line {
-    @apply w-full min-w-full max-w-lg px-0.5 py-1 border-b-2 bd-b-secondary focus:outline-none focus:ring-0 focus:bd-b-primary;
+    @apply w-full min-w-full max-w-lg px-0.5 py-1 bg-transparent border-b-2 bd-b-secondary focus:outline-none focus:ring-0 focus:bd-b-primary;
   }
 }
 

@@ -1,6 +1,7 @@
-import IPostcard from "@/_lib/postcard/model/postcard";
+import IPostcard from "@/_lib/postcard/models/postcard";
 import SupabaseUtils from "@/_utils/supabase";
 import { createClient } from "@/_utils/supabase/client";
+import Link from "next/link";
 
 export default async function Postcards({ userId }: { userId: string }) {
   const supabase = createClient();
@@ -9,6 +10,16 @@ export default async function Postcards({ userId }: { userId: string }) {
     .from("postcards")
     .select()
     .eq("user_id", userId);
+
+  if (error || !data.length) {
+    return (
+      <div className="text-center">
+        <Link href="/gallery" className="btn-primary-outline">
+          browse examples
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <ul className="flex flex-col gap-16 items-center">
