@@ -6,6 +6,7 @@ import {
   SubmitButton,
 } from "./form";
 import { signup } from "./actions";
+import { Suspense } from "react";
 
 export default async function SignupForm() {
   return (
@@ -13,7 +14,9 @@ export default async function SignupForm() {
       <EmailInput />
       <PasswordInput />
       <SubmitButton>sign up</SubmitButton>
-      <FormSubmitError />
+      <Suspense>
+        <FormSubmitError />
+      </Suspense>
     </FormContainer>
   );
 }

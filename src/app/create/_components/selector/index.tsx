@@ -72,16 +72,16 @@ export default function Selector() {
                   />
                   <p>{t.name}</p>
                 </div>
-                <div className="flex gap-2 items-start">
+                <div className="flex gap-2 items-start flex-wrap">
                   <img
                     src={t.frontPreviewImageUrl}
                     alt={`${t.name} - front}`}
-                    className="cursor-pointer bd-secondary group-has-[:checked]:bd-primary w-full max-w-64 max-h-64"
+                    className="cursor-pointer bd-secondary group-has-[:checked]:bd-primary w-auto max-w-64 max-h-64"
                   />
                   <img
                     src={t.backPreviewImageUrl}
                     alt={`${t.name} - back`}
-                    className="cursor-pointer bd-secondary group-has-[:checked]:bd-primary w-full max-w-64 max-h-64"
+                    className="cursor-pointer bd-secondary group-has-[:checked]:bd-primary w-auto max-w-64 max-h-64"
                   />
                 </div>
               </label>

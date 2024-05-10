@@ -6,6 +6,7 @@ import {
   SubmitButton,
 } from "./form";
 import { login } from "./actions";
+import { Suspense } from "react";
 
 export default async function LoginForm() {
   return (
@@ -13,7 +14,9 @@ export default async function LoginForm() {
       <EmailInput />
       <PasswordInput />
       <SubmitButton>log in</SubmitButton>
-      <FormSubmitError />
+      <Suspense>
+        <FormSubmitError />
+      </Suspense>
     </FormContainer>
   );
 }

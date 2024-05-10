@@ -46,7 +46,7 @@ const Modal: React.FC<IModalProps> = ({ isOpen, onClose, children }) => {
 
   if (!wrapperEl) return null;
   return ReactDOM.createPortal(
-    <dialog ref={dialogRef} onKeyDown={handleKeyDown}>
+    <dialog ref={dialogRef} onKeyDown={handleKeyDown} className="relative z-10">
       <div className="fixed z-10 top-0 left-0 w-full h-full modal-overlay"></div>
       <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
         <div
