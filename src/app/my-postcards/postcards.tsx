@@ -1,5 +1,5 @@
 import IPostcard from "@/_lib/postcard/models/postcard";
-import SupabaseUtils from "@/_utils/supabase";
+import ImageUtils from "@/_utils/imageUtils";
 import { createClient } from "@/_utils/supabase/client";
 import Link from "next/link";
 
@@ -27,12 +27,12 @@ export default async function Postcards({ userId }: { userId: string }) {
         <li key={postcard.id} className="space-y-2">
           <div className="flex gap-2">
             <img
-              src={SupabaseUtils.getLiveUrl(postcard.front_image_url)}
+              src={ImageUtils.Supabase.getUrl(postcard.front_image_url)}
               alt={`${postcard.template_id} - front`}
               className="bd-secondary max-w-[500px] max-h-[500px]"
             />
             <img
-              src={SupabaseUtils.getLiveUrl(postcard.back_image_url)}
+              src={ImageUtils.Supabase.getUrl(postcard.back_image_url)}
               alt={`${postcard.template_id} - front`}
               className="bd-secondary max-w-[500px] max-h-[500px]"
             />

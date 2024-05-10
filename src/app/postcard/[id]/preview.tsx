@@ -1,14 +1,14 @@
-import SupabaseUtils from "@/_utils/supabase";
 import IPostcard from "@/_lib/postcard/models/postcard";
 import PostcardPreview from "./postcardPreview";
 import PostcardPrinter from "./postcardPrinter";
 import PdfPrinter from "./pdfPrinter";
 import PdfViewer from "./pdfPreview";
+import ImageUtils from "@/_utils/imageUtils";
 
 export default function Preview({ postcard }: { postcard: IPostcard }) {
-  const frontImageSrc = SupabaseUtils.getLiveUrl(postcard?.front_image_url);
-  const backImageSrc = SupabaseUtils.getLiveUrl(postcard?.back_image_url);
-  const pdfSrc = SupabaseUtils.getLiveUrl(postcard?.pdf_url);
+  const frontImageSrc = ImageUtils.Supabase.getUrl(postcard?.front_image_url);
+  const backImageSrc = ImageUtils.Supabase.getUrl(postcard?.back_image_url);
+  const pdfSrc = ImageUtils.Supabase.getUrl(postcard?.pdf_url);
 
   return (
     <>

@@ -1,5 +1,5 @@
 import IPostcard from "@/_lib/postcard/models/postcard";
-import SupabaseUtils from "@/_utils/supabase";
+import ImageUtils from "@/_utils/imageUtils";
 import { createClient } from "@/_utils/supabase/server";
 
 export default async function Gallery() {
@@ -9,10 +9,13 @@ export default async function Gallery() {
   return (
     <div className="flex gap-2">
       {postcards?.map((postcard: IPostcard) => (
-        <div className="bd-secondary hover:bd-primary w-max h-max">
+        <div
+          key={postcard.id}
+          className="bd-secondary hover:bd-primary w-max h-max"
+        >
           <img
             key={postcard.id}
-            src={SupabaseUtils.getLiveUrl(postcard.front_image_url)}
+            src={ImageUtils.Supabase.getUrl(postcard.front_image_url)}
             alt={postcard.template_id}
             className="max-w-[500px] max-h-[500px]"
           />
