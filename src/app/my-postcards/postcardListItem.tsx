@@ -1,3 +1,4 @@
+import CardImage from "@/_components/cardImage";
 import IPostcard from "@/_lib/postcard/models/postcard";
 import ImageUtils from "@/_utils/imageUtils";
 import PostcardDisplayUtils from "@/_utils/postcardDisplayUtils";
@@ -42,25 +43,21 @@ export default function PostcardListItem({
         <p className="grow text-2xl">postcard no. {index}</p>
         <Link
           href={`/postcard/${postcard.id}`}
-          className="btn-seconary-outline"
+          className="btn-seconary-outline hover:underline"
         >
           download options →
         </Link>
       </div>
       <div className="flex flex-wrap gap-2 items-start justify-center">
-        <Image
+        <CardImage
           src={frontImageSrc}
           alt={`${postcard.template_id} - front`}
-          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[374] max-h-[90svw] md:max-h-[374]"
-          width={isFrontLandscape ? 374 : 249.6}
-          height={isFrontLandscape ? 249.6 : 374}
+          isLandscape={isFrontLandscape}
         />
-        <Image
+        <CardImage
           src={backImageSrc}
           alt={`${postcard.template_id} - back`}
-          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[374] max-h-[90svw] md:max-h-[374]"
-          width={isBackLandscape ? 374 : 249.6}
-          height={isBackLandscape ? 249.6 : 374}
+          isLandscape={isBackLandscape}
         />
       </div>
     </div>
