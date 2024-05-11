@@ -1,8 +1,9 @@
 import PageHeader from "@/_components/pageHeader";
 import PageSubheader from "@/_components/pageSubheader";
 import { createClient } from "@/_utils/supabase/server";
+import PostcardPreview from "./postcardPreview";
+import PdfPreview from "./pdfPreview";
 import Link from "next/link";
-import Preview from "./preview";
 import { redirect } from "next/navigation";
 
 export default async function PostcardPage({
@@ -48,7 +49,10 @@ export default async function PostcardPage({
         )}
       </div>
       {hasPostcard ? (
-        <Preview postcard={postcard} />
+        <div className="max-w-4xl mx-auto space-y-12 lg:space-y-16">
+          <PostcardPreview postcard={postcard} />
+          <PdfPreview postcard={postcard} />
+        </div>
       ) : (
         <div className="text-center space-y-4">
           <p>couldnt find your postcard :-(</p>

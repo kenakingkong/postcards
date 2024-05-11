@@ -15,7 +15,7 @@ export default function Editor() {
       <div className="space-y-2">
         <PageHeader>customize your card</PageHeader>
         <PageSubheader>
-          or,{" "}
+          or{" "}
           <button className="underline" onClick={onBack}>
             choose a new template
           </button>

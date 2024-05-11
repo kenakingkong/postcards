@@ -23,9 +23,9 @@ export default async function PostcardList({ userId }: { userId: string }) {
   }
 
   return (
-    <ul className="flex flex-col gap-16 items-center">
+    <ul className="flex flex-col gap-16 items-start max-w-5xl mx-auto">
       {data?.map((postcard: IPostcard, index: number) => (
-        <li key={postcard.id}>
+        <li key={postcard.id} className="w-full">
           <PostcardListItem postcard={postcard} index={index} />
         </li>
       ))}

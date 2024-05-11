@@ -118,10 +118,15 @@ export default function ImageEditors() {
 
       const payload = {
         user_id: userId,
-        template_id: builder.template?.id,
+        title: "untitled",
         front_image_url: frontImageData?.path || "",
         back_image_url: backImageData?.path || "",
         pdf_url: pdfData?.path || "",
+        template_id: builder.template?.id,
+        front_image_orientation:
+          builder.template?.front.orientation || "landscape",
+        back_image_orientation:
+          builder.template?.back.orientation || "landscape",
       };
 
       const { data: record, error: recordError } = await supabase

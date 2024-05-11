@@ -1,5 +1,7 @@
 import IPostcard from "@/_lib/postcard/models/postcard";
 import ImageUtils from "@/_utils/imageUtils";
+import PostcardDisplayUtils from "@/_utils/postcardDisplayUtils";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function PostcardListItem({
@@ -9,22 +11,31 @@ export default function PostcardListItem({
   index: number;
   postcard: IPostcard;
 }) {
-  const NETLIFY_PARAMS = {
-    // w: 576,
-    // h: 384,
+  const isFrontLandscape = PostcardDisplayUtils.isLandscape(
+    postcard.front_image_orientation
+  );
+  const isBackLandscape = PostcardDisplayUtils.isLandscape(
+    postcard.back_image_orientation
+  );
+
+  const frontParams = {
+    // w: isFrontLandscape ? 576 : 384,
+    // h: isFrontLandscape ? 384 : 576,
     format: "avif",
     quality: 1,
+    url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
   };
 
-  const frontImageSrc = ImageUtils.Netlify.getUrl({
-    url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
-    ...NETLIFY_PARAMS,
-  });
-
-  const backImageSrc = ImageUtils.Netlify.getUrl({
+  const backParams = {
+    // w: isBackLandscape ? 576 : 384,
+    // h: isBackLandscape ? 384 : 576,
+    format: "avif",
+    quality: 1,
     url: ImageUtils.Supabase.getUrl(postcard.back_image_url),
-    ...NETLIFY_PARAMS,
-  });
+  };
+
+  const frontImageSrc = ImageUtils.Netlify.getUrl(frontParams);
+  const backImageSrc = ImageUtils.Netlify.getUrl(backParams);
 
   return (
     <div className="space-y-4">
@@ -37,20 +48,20 @@ export default function PostcardListItem({
           download options →
         </Link>
       </div>
-      <div className="flex gap-2">
-        <img
+      <div className="flex flex-wrap gap-2 items-start">
+        <Image
           src={frontImageSrc}
           alt={`${postcard.template_id} - front`}
-          className="bd-secondary"
-          width={400}
-          height={267}
+          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[460px] max-h-[90svw] md:max-h-[460px]"
+          width={isFrontLandscape ? 460 : 307}
+          height={isFrontLandscape ? 307 : 460}
         />
-        <img
+        <Image
           src={backImageSrc}
           alt={`${postcard.template_id} - back`}
-          className="bd-secondary"
-          width={400}
-          height={267}
+          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[460px] max-h-[90svw] md:max-h-[460px]"
+          width={isFrontLandscape ? 460 : 307}
+          height={isFrontLandscape ? 307 : 460}
         />
       </div>
     </div>
