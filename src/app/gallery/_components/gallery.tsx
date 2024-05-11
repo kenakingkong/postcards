@@ -7,19 +7,17 @@ export default async function Gallery() {
   const { data: postcards } = await supabase.from("postcards").select();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-4 flex-wrap items-start">
       {postcards?.map((postcard: IPostcard) => (
-        <div
+        <img
           key={postcard.id}
-          className="bd-secondary hover:bd-primary w-max h-max"
-        >
-          <img
-            key={postcard.id}
-            src={ImageUtils.Supabase.getUrl(postcard.front_image_url)}
-            alt={postcard.template_id}
-            className="max-w-[500px] max-h-[500px]"
-          />
-        </div>
+          src={ImageUtils.Netlify.getUrl({
+            url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
+            format: "avif",
+          })}
+          alt={postcard.template_id}
+          className="bd-secondary max-w-[375px] max-h-[375px]"
+        />
       ))}
     </div>
   );

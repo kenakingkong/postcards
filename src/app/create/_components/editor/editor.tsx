@@ -9,12 +9,14 @@ import CanvasPainter from "@/_lib/canvasPainter";
 import Pdf from "@/_lib/pdfBuilder";
 import { createClient } from "@/_utils/supabase/client";
 import { useRouter } from "next/navigation";
+import classNames from "classnames";
 
 export default function ImageEditors() {
   const router = useRouter();
   const supabase = createClient();
   const builder = useBuilder();
 
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
 
   const FRONT_PROMPT = "+ add image";
@@ -70,6 +72,8 @@ export default function ImageEditors() {
     }
 
     try {
+      setIsGenerating(true);
+
       const imageBlobs = await Promise.all([
         frontPainterRef.current.saveCanvasAsBlob(),
         backPainterRef.current.saveCanvasAsBlob(),
@@ -113,7 +117,7 @@ export default function ImageEditors() {
       if (pdfError) throw new Error();
 
       const payload = {
-        user_id: "ad87c45e-7d47-4032-9bd1-37db20fa6d21",
+        user_id: userId,
         template_id: builder.template?.id,
         front_image_url: frontImageData?.path || "",
         back_image_url: backImageData?.path || "",
@@ -127,10 +131,13 @@ export default function ImageEditors() {
 
       if (recordError) throw new Error();
 
+      setIsGenerating(false);
+
       router.push(`/postcard/${record?.[0]?.id}`);
     } catch (error) {
       console.error("did someone throw and error?");
       setHasError(true);
+      setIsGenerating(false);
     }
   };
 
@@ -142,8 +149,11 @@ export default function ImageEditors() {
       </div>
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 space-y-2 flex flex-col items-center">
         {hasError && <FormError>upload a custom image to continue</FormError>}
-        <button className="btn-primary" onClick={onGenerate}>
-          generate postcard
+        <button
+          className={classNames("btn-primary", isGenerating && "cursor-wait")}
+          onClick={onGenerate}
+        >
+          {isGenerating ? "generating..." : "generate postcard"}
         </button>
       </div>
     </>

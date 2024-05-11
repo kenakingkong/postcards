@@ -22,20 +22,22 @@ namespace ImageUtils {
   export namespace Netlify {
     const BASE_NETLIFY_URL = `${process.env.NEXT_PUBLIC_SITE_URL}/.netlify/images/`;
 
-    export interface INetlifyImageParamProps extends URLSearchParams {
+    export interface INetlifyImageParamProps {
       url: string;
       w?: number;
       h?: number;
-      fit?: "object" | "contain" | "fill";
-      position?: "center" | "top" | "bottom" | "left" | "right";
-      format?: "avif" | "jpg" | "png" | "webp" | "gif" | "blurhash";
+      fit?: string; //"object" | "contain" | "fill";
+      position?: string; //"center" | "top" | "bottom" | "left" | "right";
+      format?: string; //"avif" | "jpg" | "png" | "webp" | "gif" | "blurhash";
       quality?: number;
     }
 
-    export const getNetlifyUrl = async (data: INetlifyImageParamProps) => {
-      const params = new URLSearchParams(data);
-      return `${BASE_NETLIFY_URL}?${params.toString()}`;
-    };
+    export function getUrl(data: INetlifyImageParamProps) {
+      const params = Object.entries(data)
+        .map((entry) => `${entry[0]}=${entry[1]}`)
+        .join("&");
+      return `${BASE_NETLIFY_URL}?${params}`;
+    }
   }
 }
 

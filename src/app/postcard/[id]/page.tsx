@@ -3,6 +3,7 @@ import PageSubheader from "@/_components/pageSubheader";
 import { createClient } from "@/_utils/supabase/server";
 import Link from "next/link";
 import Preview from "./preview";
+import { redirect } from "next/navigation";
 
 export default async function PostcardPage({
   params,
@@ -12,6 +13,8 @@ export default async function PostcardPage({
   const { id } = params;
   const supabase = createClient();
 
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
   const { data, error } = await supabase
     .from("postcards")
     .select()
@@ -20,6 +23,16 @@ export default async function PostcardPage({
 
   const hasPostcard = !!data?.length;
   const postcard = data?.[0];
+
+  if (
+    error ||
+    userError ||
+    !userData.user ||
+    !hasPostcard ||
+    userData.user.id != postcard.user_id
+  ) {
+    redirect("/gallery");
+  }
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import PageHeader from "@/_components/pageHeader";
 import { createClient } from "@/_utils/supabase/server";
-import Postcards from "./postcards";
+import PostcardList from "./postcardLlist";
 import PageSubheader from "@/_components/pageSubheader";
 import Link from "next/link";
 
@@ -24,8 +24,7 @@ export default async function MyCardsPage() {
           </Link>
         </PageSubheader>
       </div>
-      {/* <p>Welcome, {data.user.email}</p> */}
-      <Postcards userId={data.user.id} />
+      <PostcardList userId={data.user.id} />
     </>
   );
 }
