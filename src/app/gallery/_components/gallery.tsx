@@ -1,6 +1,6 @@
 import IPostcard from "@/_lib/postcard/models/postcard";
 import { createClient } from "@/_utils/supabase/server";
-import GalleryCard from "./gallery-card";
+import GalleryCard from "./galleryCard";
 
 export default async function Gallery() {
   const supabase = createClient();

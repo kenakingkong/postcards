@@ -19,18 +19,17 @@ export default function PostcardListItem({
   );
 
   const frontParams = {
-    // w: isFrontLandscape ? 576 : 384,
-    // h: isFrontLandscape ? 384 : 576,
+    w: isFrontLandscape ? 864 : 576,
+    h: isFrontLandscape ? 576 : 864,
     format: "avif",
     quality: 1,
     url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
   };
 
   const backParams = {
-    // w: isBackLandscape ? 576 : 384,
-    // h: isBackLandscape ? 384 : 576,
     format: "avif",
-    quality: 1,
+    w: isBackLandscape ? 864 : 576,
+    h: isBackLandscape ? 576 : 864,
     url: ImageUtils.Supabase.getUrl(postcard.back_image_url),
   };
 
@@ -39,7 +38,7 @@ export default function PostcardListItem({
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2 justify-between items-end">
+      <div className="space-y-2 text-center">
         <p className="grow text-2xl">postcard no. {index}</p>
         <Link
           href={`/postcard/${postcard.id}`}
@@ -48,20 +47,20 @@ export default function PostcardListItem({
           download options →
         </Link>
       </div>
-      <div className="flex flex-wrap gap-2 items-start">
+      <div className="flex flex-wrap gap-2 items-start justify-center">
         <Image
           src={frontImageSrc}
           alt={`${postcard.template_id} - front`}
-          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[460px] max-h-[90svw] md:max-h-[460px]"
-          width={isFrontLandscape ? 460 : 307}
-          height={isFrontLandscape ? 307 : 460}
+          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[374] max-h-[90svw] md:max-h-[374]"
+          width={isFrontLandscape ? 374 : 249.6}
+          height={isFrontLandscape ? 249.6 : 374}
         />
         <Image
           src={backImageSrc}
           alt={`${postcard.template_id} - back`}
-          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[460px] max-h-[90svw] md:max-h-[460px]"
-          width={isFrontLandscape ? 460 : 307}
-          height={isFrontLandscape ? 307 : 460}
+          className="bd-secondary w-auto h-auto max-w-[90svw] md:max-w-[374] max-h-[90svw] md:max-h-[374]"
+          width={isBackLandscape ? 374 : 249.6}
+          height={isBackLandscape ? 249.6 : 374}
         />
       </div>
     </div>
