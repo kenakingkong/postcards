@@ -4,10 +4,10 @@ import GalleryCard from "./galleryCard";
 
 export default async function Gallery() {
   const supabase = createClient();
-  const { data: postcards } = await supabase.from("postcards").select();
+  const { data: postcards, error } = await supabase.from("postcards").select();
 
   return (
-    <div className="flex gap-4 flex-wrap items-start">
+    <div className="flex gap-4 flex-wrap items-start justify-center">
       {postcards?.map((postcard: IPostcard) => (
         <GalleryCard key={postcard.id} postcard={postcard} />
       ))}

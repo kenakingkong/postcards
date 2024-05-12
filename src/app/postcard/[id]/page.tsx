@@ -1,8 +1,8 @@
 import PageHeader from "@/_components/pageHeader";
 import PageSubheader from "@/_components/pageSubheader";
 import { createClient } from "@/_utils/supabase/server";
-import PostcardPreview from "./postcardPreview";
-import PdfPreview from "./pdfPreview";
+import PostcardPreview from "./_components/postcardPreview";
+import PdfPreview from "./_components/pdfPreview";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -41,9 +41,9 @@ export default async function PostcardPage({
         <PageHeader>your postcard</PageHeader>
         {hasPostcard && (
           <PageSubheader>
-            save & print or{" "}
-            <Link href="/create" className="underline">
-              create a new one
+            see{" "}
+            <Link href="/my-postcards" className="underline">
+              my postcards
             </Link>
           </PageSubheader>
         )}

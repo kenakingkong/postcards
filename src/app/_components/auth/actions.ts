@@ -24,8 +24,6 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-  const redirectPath = "/gallery";
-
   const supabase = createClient();
 
   const data = {
@@ -35,8 +33,12 @@ export async function signup(formData: FormData) {
 
   const { error } = await supabase.auth.signUp(data);
 
-  if (error) redirect("/signup?error=true");
+  if (error) {
+    console.error(error)
+    redirect("/signup?error=true");
+  }
 
+  const redirectPath = `/verify?email=${data.email}`;
   revalidatePath(redirectPath, "layout");
   redirect(redirectPath);
 }

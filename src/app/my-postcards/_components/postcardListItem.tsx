@@ -2,8 +2,7 @@ import CardImage from "@/_components/cardImage";
 import IPostcard from "@/_lib/postcard/models/postcard";
 import ImageUtils from "@/_utils/imageUtils";
 import PostcardDisplayUtils from "@/_utils/postcardDisplayUtils";
-import Image from "next/image";
-import Link from "next/link";
+import Dropdown from "./dropdown";
 
 export default function PostcardListItem({
   index,
@@ -40,13 +39,9 @@ export default function PostcardListItem({
   return (
     <div className="space-y-4">
       <div className="space-y-2 text-center">
-        <p className="grow text-2xl">postcard no. {index}</p>
-        <Link
-          href={`/postcard/${postcard.id}`}
-          className="btn-seconary-outline hover:underline"
-        >
-          download options →
-        </Link>
+        <div className="grow text-2xl">
+          postcard no. {index} <Dropdown postcard={postcard} />
+        </div>
       </div>
       <div className="flex flex-wrap gap-2 items-start justify-center">
         <CardImage

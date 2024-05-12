@@ -1,10 +1,7 @@
-const THANKS_TEMPLATES = {};
-
 const TEMPLATES = {
   "thanks-template-1": {
     id: "thanks-template-1",
     name: "three thanks",
-    fontId: "",
     frontOrientation: "landscape",
     frontBackgroundImageUrl: "/thanks-template-1.svg",
     frontPreviewImageUrl: "/thanks-template-1-preview.webp",
@@ -27,7 +24,6 @@ const TEMPLATES = {
   "thanks-template-2": {
     id: "thanks-template-2",
     name: "four overflowing thanks",
-    fontId: "",
     frontOrientation: "landscape",
     frontBackgroundImageUrl: "/thanks-template-2.svg",
     frontPreviewImageUrl: "/thanks-template-2-preview.webp",
@@ -50,7 +46,6 @@ const TEMPLATES = {
   "thanks-template-3": {
     id: "thanks-template-3",
     name: "big image small thanks",
-    fontId: "",
     frontOrientation: "portrait",
     frontBackgroundImageUrl: "/thanks-template-3.svg",
     frontPreviewImageUrl: "/thanks-template-3-preview.webp",

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import PageHeader from "@/_components/pageHeader";
 import { createClient } from "@/_utils/supabase/server";
-import PostcardList from "./postcardLlist";
+import PostcardList from "./_components/postcardList";
 import PageSubheader from "@/_components/pageSubheader";
 import Link from "next/link";
 

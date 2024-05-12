@@ -8,4 +8,5 @@ export default interface IPostcard {
   template_id: string;
   front_image_orientation: string;
   back_image_orientation: string;
+  show_in_gallery: boolean;
 }

@@ -1,13 +1,11 @@
 import TEMPLATES from "../data/templates";
 import { CustomImage } from "./customImage";
-import { Font } from "./font";
 import { ICustomImage } from "./models/customImage";
 import { IDimensions } from "./models/dimensions";
 
 export class Template {
   id: string;
   name: string = "";
-  font: Font = new Font("");
   front: {
     orientation: string;
     dimensions: IDimensions;
@@ -40,7 +38,6 @@ export class Template {
 
     const template = this.lookupTemplate();
     this.name = template.name;
-    this.font = new Font(template.fontId);
     this.front = {
       orientation: template.frontOrientation,
       dimensions: template.frontDimensions,

@@ -117,12 +117,8 @@
     @apply w-full min-w-full max-w-lg px-0.5 py-1 bg-transparent border-b-2 bd-b-secondary focus:outline-none focus:ring-0 focus:bd-b-primary;
   }
 
-  .menu-item-label {
-    @apply block px-4 pt-2 pb-1 text-xs font-medium text-left opacity-60;
-  }
-
   .menu-item {
-    @apply block px-4 py-2 text-sm text-left data-[active=true]:bg-secondary;
+    @apply block px-4 py-2 text-sm text-left hover:bg-blue-50/50 data-[active=true]:bg-secondary;
   }
 }
 
