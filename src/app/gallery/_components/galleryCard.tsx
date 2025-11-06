@@ -15,10 +15,6 @@ export default function GalleryCard({ postcard }: { postcard: IPostcard }) {
     h: isLandscape ? 576 : 864,
   });
 
-  // const src = ImageUtils.Supabase.getUrl(postcard.front_image_url);
-
-  console.log(src);
-
   return (
     <CardImage src={src} alt={postcard.template_id} isLandscape={isLandscape} />
   );

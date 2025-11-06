@@ -22,7 +22,6 @@ export default function PostcardListItem({
     w: isFrontLandscape ? 864 : 576,
     h: isFrontLandscape ? 576 : 864,
     format: "avif",
-    quality: 1,
     url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
   };
 
