@@ -8,13 +8,17 @@ export default function GalleryCard({ postcard }: { postcard: IPostcard }) {
     postcard.front_image_orientation
   );
 
-  const src = ImageUtils.Netlify.getUrl({
-    url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
-    format: "avif",
-    w: isLandscape ? 864 : 576,
-    h: isLandscape ? 576 : 864,
-  });
+  // const src = ImageUtils.Netlify.getUrl({
+  //   url: ImageUtils.Supabase.getUrl(postcard.front_image_url),
+  //   format: "avif",
+  //   w: isLandscape ? 864 : 576,
+  //   h: isLandscape ? 576 : 864,
+  // });
 
+  const src = ImageUtils.Supabase.getUrl(postcard.front_image_url)
+
+  console.log(src)
+  
   return (
     <CardImage src={src} alt={postcard.template_id} isLandscape={isLandscape} />
   );

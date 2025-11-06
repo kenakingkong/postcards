@@ -14,6 +14,7 @@ const CardImage: React.FC<ICardImageProps> = ({ isLandscape, ...props }) => (
     loading="lazy"
     width={isLandscape ? 374.4 : 249.6}
     height={isLandscape ? 249.6 : 374.4}
+    unoptimized
     {...props}
   />
 );
