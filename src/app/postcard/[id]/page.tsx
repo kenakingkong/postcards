@@ -38,7 +38,7 @@ export default async function PostcardPage({
   return (
     <>
       <div className="space-y-2">
-        <PageHeader>your postcard</PageHeader>
+        <PageHeader>Postcard #{postcard.id}</PageHeader>
         {hasPostcard && (
           <PageSubheader>
             see{" "}
@@ -49,7 +49,7 @@ export default async function PostcardPage({
         )}
       </div>
       {hasPostcard ? (
-        <div className="max-w-4xl mx-auto space-y-12 lg:space-y-16">
+        <div className="max-w-4xl mx-auto space-y-4 md:space-y-8">
           <PostcardPreview postcard={postcard} />
           <PdfPreview postcard={postcard} />
         </div>

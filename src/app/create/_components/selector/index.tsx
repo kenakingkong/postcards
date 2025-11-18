@@ -47,7 +47,7 @@ export default function Selector() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="px-4 space-y-4 md:space-y-8">
       <div className="space-y-2">
         <PageHeader>choose a template</PageHeader>
         <PageSubheader>

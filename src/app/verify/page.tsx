@@ -4,11 +4,11 @@ import { Suspense } from "react";
 
 export default function VerifyPage() {
   return (
-    <>
-      <PageHeader>verify your email address</PageHeader>
+    <div className="px-4 space-y-4 md:space-y-8">
+      <PageHeader>Verify your email address</PageHeader>
       <Suspense>
         <Verify />
       </Suspense>
-    </>
+    </div>
   );
 }

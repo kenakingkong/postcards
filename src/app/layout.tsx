@@ -1,9 +1,9 @@
+import classNames from "classnames";
 import type { Metadata } from "next";
 import { Fahkwang } from "next/font/google";
-import NavBar from "./_components/navBar";
+import Navbar from "./_components/navbar";
+import Sidebar from "./_components/sidebar";
 import "./globals.css";
-import classNames from "classnames";
-import Link from "next/link";
 
 const fahkwang = Fahkwang({
   subsets: ["latin"],
@@ -22,15 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={classNames(fahkwang.className)}>
-        <main>
-          <NavBar />
-          <div className="absolute top-0 left-0 pt-12 lg:pt-0 lg:pl-12 w-full max-h-[100svh] overflow-scroll">
-            <div className="p-4 lg:p-6 lg:pb-12 min-h-[100svh] space-y-8 bg-blue-50/20">
-              {children}
-            </div>
-          </div>
-        </main>
+      <body className={classNames(fahkwang.className, "bg-blue-50/20")}>
+        <header>
+          <Navbar />
+        </header>
+        <main>{children}</main>
+        <footer></footer>
         <div id="app-modal"></div>
       </body>
     </html>

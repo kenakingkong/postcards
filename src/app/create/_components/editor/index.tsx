@@ -11,7 +11,7 @@ export default function Editor() {
   const onBack = () => setActiveStep(STEP_NAMES.SELECTOR);
 
   return (
-    <div className="space-y-8">
+    <div className="px-4 space-y-4 md:space-y-8">
       <div className="space-y-2">
         <PageHeader>customize your card</PageHeader>
         <PageSubheader>

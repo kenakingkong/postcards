@@ -1,30 +1,16 @@
-import { redirect } from "next/navigation";
 import PageHeader from "@/_components/pageHeader";
-import { createClient } from "@/_utils/supabase/server";
+import { requireAuth } from "@/_utils/supabase/auth";
 import PostcardList from "./_components/postcardList";
-import PageSubheader from "@/_components/pageSubheader";
-import Link from "next/link";
 
 export default async function MyCardsPage() {
-  const supabase = createClient();
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
-    redirect("/login");
-  }
+  const user = await requireAuth();
 
   return (
-    <>
-      <div className="space-y-2">
-        <PageHeader>my postcards</PageHeader>
-        <PageSubheader>
-          <Link href="/create" className="link">
-            create a new one
-          </Link>
-        </PageSubheader>
+    <div className="px-4 space-y-4 md:space-y-8">
+      <PageHeader>Postcards</PageHeader>
+      <div className="max-w-4xl mx-auto">
+        <PostcardList userId={user.id} />
       </div>
-      <PostcardList userId={data.user.id} />
-    </>
+    </div>
   );
 }

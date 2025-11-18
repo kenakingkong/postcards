@@ -16,7 +16,7 @@ export default async function Dropdown({ postcard }: { postcard: IPostcard }) {
       <div>
         <MenuButton
           title="options"
-          className="text-xl px-2 rounded border-[2.5px] border-transparent hover:bd-secondary hover:bg-white data-[active]:bd-secondary data-[active]:bg-white"
+          className="text-4xl px-2 rounded border-[2.5px] border-transparent hover:bd-secondary hover:bg-white data-[active]:bd-secondary data-[active]:bg-white"
         >
           ···
         </MenuButton>
