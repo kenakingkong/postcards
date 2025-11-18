@@ -65,10 +65,12 @@ export class Template {
     };
   }
 
+  private static readonly LANDSCAPE_DIMENSIONS = { w: 576, h: 384 };
+  private static readonly PORTRAIT_DIMENSIONS = { w: 384, h: 576 };
+
   private getDimensions(orientation?: string) {
-    if (orientation == "portrait") {
-      return { w: 384, h: 576 };
-    }
-    return { w: 576, h: 384 };
+    return orientation === "portrait"
+      ? Template.PORTRAIT_DIMENSIONS
+      : Template.LANDSCAPE_DIMENSIONS;
   }
 }

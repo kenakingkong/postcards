@@ -49,7 +49,8 @@ export const SessionContextProvider: React.FC<{
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [supabase]);
+  
   return (
     <SessionContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       {children}

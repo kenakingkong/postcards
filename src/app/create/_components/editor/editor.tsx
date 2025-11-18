@@ -94,7 +94,9 @@ export default function ImageEditors() {
 
       if (frontImageError) {
         console.error(frontImageError);
-        throw new Error();
+        throw new Error(
+          `Failed to upload front image: ${frontImageError.message}`
+        );
       }
 
       const { data: backImageData, error: backImageError } =
@@ -105,7 +107,12 @@ export default function ImageEditors() {
             imageBlobs[1]
           );
 
-      if (backImageError) throw new Error();
+      if (backImageError) {
+        console.error(backImageError);
+        throw new Error(
+          `Failed to upload back image: ${backImageError.message}`
+        );
+      }
 
       const { data: pdfData, error: pdfError } = await supabase.storage
         .from("postcard-uploads")
@@ -114,7 +121,10 @@ export default function ImageEditors() {
           pdfBlob
         );
 
-      if (pdfError) throw new Error();
+      if (pdfError) {
+        console.error(pdfError);
+        throw new Error(`Failed to upload pdf: ${pdfError.message}`);
+      }
 
       const payload = {
         user_id: userId,
@@ -134,7 +144,10 @@ export default function ImageEditors() {
         .insert(payload)
         .select();
 
-      if (recordError) throw new Error();
+      if (recordError) {
+        console.error(recordError);
+        throw new Error(`Failed to upload postcard: ${recordError.message}`);
+      }
 
       setIsGenerating(false);
 
